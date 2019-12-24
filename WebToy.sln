@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.960
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFroms", "WebFroms\WebFroms.csproj", "{0B18608D-478A-4593-B601-1066600BD925}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForms", "WebForms\WebForms.csproj", "{0B18608D-478A-4593-B601-1066600BD925}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFroms.Tests", "WebFroms.Tests\WebFroms.Tests.csproj", "{D8D3C69A-B132-4309-8D08-01EC45C90435}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForms.Tests", "WebForms.Tests\WebForms.Tests.csproj", "{D8D3C69A-B132-4309-8D08-01EC45C90435}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
