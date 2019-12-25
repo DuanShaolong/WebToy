@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Web;
@@ -71,6 +72,13 @@ namespace WebForms
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public IQueryable<Category> GetCategories()
+        {
+            var _db = new ApplicationDbContext();
+            IQueryable<Category> query = _db.Categories;
+            return query;
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
