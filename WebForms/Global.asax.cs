@@ -26,6 +26,33 @@ namespace WebForms
             // Create the custom role and user.
             RoleActions roleActions = new RoleActions();
             roleActions.AddUserAndRole();
+
+            // Add Routes.
+            RegisterCustomRoutes(RouteTable.Routes);
+        }
+        void Application_Error(object sender, EventArgs e)
+        {
+            Exception exc = Server.GetLastError();
+
+            if (exc is HttpUnhandledException)
+            {
+                // Pass the error on to the error page.
+                Server.Transfer("ErrorPage.aspx?handler=Application_Error%20-%20Global.asax", true);
+            }
+        }
+
+        private void RegisterCustomRoutes(RouteCollection routes)
+        {
+            routes.MapPageRoute(
+              "ProductsByCategoryRoute",
+              "Category/{categoryName}",
+              "~/ProductList.aspx"
+          );
+            routes.MapPageRoute(
+                "ProductByNameRoute",
+                "Product/{productName}",
+                "~/ProductDetails.aspx"
+            );
         }
     }
 }

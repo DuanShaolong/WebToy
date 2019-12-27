@@ -15,20 +15,44 @@ namespace WebForms
         {
 
         }
-
-        public Product GetProduct([QueryString("productID")] int? productId)
+        /// <summary>
+        /// First edition
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <param name="productName"></param>
+        /// <returns></returns>
+        //public Product GetProduct([QueryString("productID")] int? productId)
+        //{
+        //    var _db = new ApplicationDbContext();
+        //    var product = new Product();
+        //    if (productId.HasValue & productId > 0)
+        //    {
+        //        product = _db.Products.FirstOrDefault(x => x.ProductID == productId);
+        //    }
+        //    else
+        //    {
+        //        product = null;
+        //    }
+        //    return product;
+        //}
+        public IQueryable<Product> GetProduct([QueryString("ProductID")] int? productId, [RouteData] string productName)
         {
-            var _db = new ApplicationDbContext();
-            var product = new Product();
-            if (productId.HasValue & productId > 0)
+            var _db = new WebForms.Models.ApplicationDbContext();
+            IQueryable<Product> query = _db.Products;
+            if (productId.HasValue && productId > 0)
             {
-                product = _db.Products.FirstOrDefault(x => x.ProductID == productId);
+                query = query.Where(p => p.ProductID == productId);
+            }
+            else if (!String.IsNullOrEmpty(productName))
+            {
+                query = query.Where(p =>
+                      String.Compare(p.ProductName, productName) == 0);
             }
             else
             {
-                product = null;
+                query = null;
             }
-            return product;
+            return query;
         }
     }
 }

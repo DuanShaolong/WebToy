@@ -6,6 +6,7 @@ using System.Web.ModelBinding;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebForms.Models;
+using System.Web.Routing;
 
 namespace WebForms
 {
@@ -15,13 +16,38 @@ namespace WebForms
         {
 
         }
-        public IQueryable<Product> GetProducts([QueryString("id")] int? categoryId)
+        /// <summary>
+        /// First edition
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="categoryName"></param>
+        /// <returns></returns>
+        //public IQueryable<Product> GetProducts([QueryString("id")] int? categoryId)
+        //{
+        //    var _db = new ApplicationDbContext();
+        //    IQueryable<Product> query = _db.Products;
+        //    if (categoryId.HasValue && categoryId > 0)
+        //    {
+        //        query = query.Where(x => x.CategoryID == categoryId);
+        //    }
+        //    return query;
+        //}
+
+        public IQueryable<Product> GetProducts([QueryString("id")] int? categoryId, [RouteData] string categoryName)
         {
-            var _db = new ApplicationDbContext();
+            var _db = new WebForms.Models.ApplicationDbContext();
             IQueryable<Product> query = _db.Products;
+
             if (categoryId.HasValue && categoryId > 0)
             {
-                query = query.Where(x => x.CategoryID == categoryId);
+                query = query.Where(p => p.CategoryID == categoryId);
+            }
+
+            if (!String.IsNullOrEmpty(categoryName))
+            {
+                query = query.Where(p =>
+                    String.Compare(p.Category.CategoryName,
+                    categoryName) == 0);
             }
             return query;
         }
